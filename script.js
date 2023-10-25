@@ -41,8 +41,8 @@ function displayData() {
         cell2.innerHTML = item.students;
     });
 
-    var dataContainer = document.getElementById("dataContainer");
-    dataContainer.innerHTML = JSON.stringify(data, null, 2);
+    // var dataContainer = document.getElementById("dataContainer");
+    // dataContainer.innerHTML = JSON.stringify(data, null, 2);
 }
 
 // Attach click event listeners to the sorting buttons

@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Largest School Districts in Texas : 2021</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <h1>List of School Districts in Texas : 2021</h1>
-    <div>
-        <button id="sortLargestBtn">Sort by Largest Number of Students</button>
-        <button id="sortSmallestBtn">Sort by Smallest Number of Students</button>
+    <div class="container" id="table-container">
+        <h1 class="text-center">List of School Districts in Texas</h1>
+        <div class="text-center">
+            <button class="btn btn-primary" id="sortLargestBtn">Sort by Largest Number of Students</button>
+            <button class="btn btn-success" id="sortSmallestBtn">Sort by Smallest Number of Students</button>
+        </div>
+        <table class="table" id="districtTable">
+            <thead>
+                <tr>
+                    <th>School District</th>
+                    <th>Number of Students</th>
+                </tr>
+            </thead>
+        </table>
     </div>
-    <table id="districtTable">
-        <tr>
-            <th>School District</th>
-            <th>Number of Students</th>
-        </tr>
-    </table>
-
     <!-- Container for the dynamically generated data -->
-    <div id="dataContainer"></div>
-
+    <div class="container" id="dataContainer"></div>
     <script src="script.js"></script>
 </body>
 </html>
