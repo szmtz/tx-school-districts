@@ -53,6 +53,41 @@ document.getElementById("sortSmallestBtn").addEventListener("click", sortBySmall
 displayData();
 
 
+// ... (previous code)
+
+// Function to handle sorting and add animation
+function sortAndAnimateData(sortFunction) {
+    // Remove existing rows
+    var table = document.getElementById("districtTable");
+    table.innerHTML = "<tr><th>School District</th><th>Number of Students</th></tr>";
+
+    // Sort the data
+    sortFunction();
+
+    // Add sorted data with animation
+    var delay = 100; // Delay between rows (adjust as needed)
+    data.forEach(function(item, index) {
+        setTimeout(function() {
+            var row = table.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = item.district;
+            cell2.innerHTML = item.students;
+        }, index * delay);
+    });
+}
+
+// Attach click event listeners to the sorting buttons
+document.getElementById("sortLargestBtn").addEventListener("click", function() {
+    sortAndAnimateData(sortByLargest);
+});
+
+document.getElementById("sortSmallestBtn").addEventListener("click", function() {
+    sortAndAnimateData(sortBySmallest);
+});
+
+// Display the initial data
+displayData();
 
 
 
