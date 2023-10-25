@@ -10,28 +10,57 @@ var data = [
     { district: "Katy Independent School District (KISD)", students: "84,000" },
     { district: "Plano Independent School District (PISD)", students: "53,000" },
     { district: "North East Independent School District (NEISD)", students: "65,000" },
-
-    // Add more data as needed
 ];
 
 // Sort the data by the number of students in descending order
-data.sort(function(a, b) {
-    return parseInt(b.students.replace(',', '')) - parseInt(a.students.replace(',', ''));
-});
-
-
-// Get a reference to the table
-var table = document.getElementById("districtTable");
-
-// Loop through the data and populate the table
-for (var i = 0; i < data.length; i++) {
-    var row = table.insertRow(i + 1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    cell1.innerHTML = data[i].district;
-    cell2.innerHTML = data[i].students;
+function sortByLargest() {
+    data.sort(function(a, b) {
+        return parseInt(b.students.replace(',', '')) - parseInt(a.students.replace(',', ''));
+    });
+    displayData();
 }
 
-// Attach the data to a container with the id "dataContainer"
-// var dataContainer = document.getElementById("dataContainer");
-// dataContainer.innerHTML = JSON.stringify(data, null, 2); // Display the data as a JSON string
+// Sort the data by the number of students in ascending order
+function sortBySmallest() {
+    data.sort(function(a, b) {
+        return parseInt(a.students.replace(',', '')) - parseInt(b.students.replace(',', ''));
+    });
+    displayData();
+}
+
+// Display data in the table and the container
+function displayData() {
+    var table = document.getElementById("districtTable");
+    table.innerHTML = "<tr><th>School District</th><th>Number of Students</th></tr>";
+
+    data.forEach(function(item) {
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = item.district;
+        cell2.innerHTML = item.students;
+    });
+
+    var dataContainer = document.getElementById("dataContainer");
+    dataContainer.innerHTML = JSON.stringify(data, null, 2);
+}
+
+// Attach click event listeners to the sorting buttons
+document.getElementById("sortLargestBtn").addEventListener("click", sortByLargest);
+document.getElementById("sortSmallestBtn").addEventListener("click", sortBySmallest);
+
+// Display the initial data
+displayData();
+
+
+
+
+
+
+
+
+
+
+
+
+
