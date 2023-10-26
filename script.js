@@ -30,21 +30,21 @@ function sortAndAnimateData(sortFunction) {
     sortFunction();
 
     // Add sorted data with animation
-    table.selectAll("tr")
+    var rows = table.selectAll("tr")
         .data(data, function(d) { return d.district; })
         .enter()
         .append("tr")
-        .style("opacity", 0)
-        .transition(t)
-        .style("opacity", 1);
+        .style("opacity", 0);
+
+    rows.transition(t).style("opacity", 1);
 
     // Update the table cells
-    table.selectAll("tr")
-        .data(data, function(d) { return d.district; })
-        .selectAll("td")
+    rows.selectAll("td")
         .data(function(d) {
             return [d.district, d.students];
         })
+        .enter()
+        .append("td")
         .text(function(d) { return d; });
 }
 
@@ -61,22 +61,3 @@ document.getElementById("sortSmallestBtn").addEventListener("click", function() 
 var table = d3.select("#districtTable");
 
 // Add table headers
-table.append("tr")
-    .selectAll("th")
-    .data(["School District", "Number of Students"])
-    .enter()
-    .append("th")
-    .text(function(d) { return d; });
-
-// Add initial data without animation
-table.selectAll("tr")
-    .data(data, function(d) { return d.district; })
-    .enter()
-    .append("tr")
-    .selectAll("td")
-    .data(function(d) {
-        return [d.district, d.students];
-    })
-    .enter()
-    .append("td")
-    .text(function(d) { return d; });
