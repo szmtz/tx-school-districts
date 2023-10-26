@@ -53,8 +53,6 @@ document.getElementById("sortSmallestBtn").addEventListener("click", sortBySmall
 displayData();
 
 
-// ... (previous code)
-
 // Function to handle sorting and add animation
 function sortAndAnimateData(sortFunction) {
     // Remove existing rows
