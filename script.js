@@ -55,17 +55,24 @@ displayData();
 
 // Function to handle sorting and add animation
 function sortAndAnimateData(sortFunction) {
-    // Remove existing rows
+    // Get the table element
     var table = document.getElementById("districtTable");
-    table.innerHTML = "<tr><th>School District</th><th>Number of Students</th></tr>";
+
+    // Get the current rows except the header
+    var rows = Array.from(table.getElementsByTagName("tr")).slice(1);
 
     // Sort the data
     sortFunction();
 
+    // Remove existing data rows
+    rows.forEach(function (row) {
+        table.removeChild(row);
+    });
+
     // Add sorted data with animation
     var delay = 100; // Delay between rows (adjust as needed)
-    data.forEach(function(item, index) {
-        setTimeout(function() {
+    data.forEach(function (item, index) {
+        setTimeout(function () {
             var row = table.insertRow(-1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
@@ -74,6 +81,7 @@ function sortAndAnimateData(sortFunction) {
         }, index * delay);
     });
 }
+
 
 // Attach click event listeners to the sorting buttons
 document.getElementById("sortLargestBtn").addEventListener("click", function() {
