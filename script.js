@@ -12,40 +12,69 @@ var data = [
     { district: "North East Independent School District (NEISD)", students: "65,000" },
 ];
 
-// Function to sort and animate the data
-function sortAndAnimateData(sortFunction) {
-    var table = d3.select("#districtTable");
-    var t = d3.transition().duration(1000);
+// Sort the data by the number of students in descending order
+function sortByLargest() {
+    data.sort(function(a, b) {
+        return parseInt(b.students.replace(',', '')) - parseInt(a.students.replace(',', ''));
+    });
+    displayData();
+}
 
-    // Remove existing rows with animation
-    table.selectAll("tr")
-        .data(data, function(d) { return d.district; })
-        .exit()
-        .style("opacity", 1)
-        .transition(t)
-        .style("opacity", 0)
-        .remove();
+// Sort the data by the number of students in ascending order
+function sortBySmallest() {
+    data.sort(function(a, b) {
+        return parseInt(a.students.replace(',', '')) - parseInt(b.students.replace(',', ''));
+    });
+    displayData();
+}
+
+// Display data in the table and the container
+function displayData() {
+    var table = document.getElementById("districtTable");
+    table.innerHTML = "<tr><th>School District</th><th>Number of Students</th></tr>";
+
+    data.forEach(function(item) {
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = item.district;
+        cell2.innerHTML = item.students;
+    });
+
+    // var dataContainer = document.getElementById("dataContainer");
+    // dataContainer.innerHTML = JSON.stringify(data, null, 2);
+}
+
+// Attach click event listeners to the sorting buttons
+document.getElementById("sortLargestBtn").addEventListener("click", sortByLargest);
+document.getElementById("sortSmallestBtn").addEventListener("click", sortBySmallest);
+
+// Display the initial data
+displayData();
+
+
+// ... (previous code)
+
+// Function to handle sorting and add animation
+function sortAndAnimateData(sortFunction) {
+    // Remove existing rows
+    var table = document.getElementById("districtTable");
+    table.innerHTML = "<tr><th>School District</th><th>Number of Students</th></tr>";
 
     // Sort the data
     sortFunction();
 
     // Add sorted data with animation
-    var rows = table.selectAll("tr")
-        .data(data, function(d) { return d.district; })
-        .enter()
-        .append("tr")
-        .style("opacity", 0);
-
-    rows.transition(t).style("opacity", 1);
-
-    // Update the table cells
-    rows.selectAll("td")
-        .data(function(d) {
-            return [d.district, d.students];
-        })
-        .enter()
-        .append("td")
-        .text(function(d) { return d; });
+    var delay = 100; // Delay between rows (adjust as needed)
+    data.forEach(function(item, index) {
+        setTimeout(function() {
+            var row = table.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = item.district;
+            cell2.innerHTML = item.students;
+        }, index * delay);
+    });
 }
 
 // Attach click event listeners to the sorting buttons
@@ -58,6 +87,4 @@ document.getElementById("sortSmallestBtn").addEventListener("click", function() 
 });
 
 // Display the initial data
-var table = d3.select("#districtTable");
-
-// Add table headers
+displayData();
